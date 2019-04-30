@@ -62,7 +62,7 @@ font-3 = FontAwesome:style=Solid:size=16:antialias=true;3
 
 modules-left = bspwm i3
 modules-center =
-modules-right = filesystem xbacklight alsa pulseaudio tor-status updates-arch-combined xkeyboard memory cpu wlan eth battery temperature date nm-reset powermenu 
+modules-right = filesystem xbacklight alsa pulseaudio nm-reset tor-status updates-arch-combined xkeyboard memory cpu battery date powermenu 
 
 tray-position = right
 tray-padding = 2
@@ -347,7 +347,7 @@ format-disconnected =
 type = internal/date
 interval = 1
 
-date =
+date = 
 date-alt = " %Y-%m-%d"
 
 time = %H:%M:%S
@@ -419,24 +419,6 @@ animation-discharging-2 =
 animation-discharging-foreground = ${colors.foreground-alt}
 animation-discharging-framerate = 750
 
-[module/temperature]
-type = internal/temperature
-thermal-zone = 0
-warn-temperature = 60
-
-format = <ramp> <label>
-format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
-
-label = Temp: %temperature-c%
-label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
-
-ramp-0 =
-ramp-1 =
-ramp-2 =
-ramp-foreground = ${colors.foreground-alt}
 
 [module/powermenu]
 type = custom/menu
