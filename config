@@ -62,7 +62,7 @@ font-3 = FontAwesome:style=Solid:size=16:antialias=true;3
 
 modules-left = bspwm i3
 modules-center =
-modules-right = filesystem xbacklight alsa pulseaudio xkeyboard memory cpu wlan eth battery temperature date tor-status nm-reset powermenu 
+modules-right = filesystem xbacklight alsa pulseaudio tor-status updates-arch-combined xkeyboard memory cpu wlan eth battery temperature date nm-reset powermenu 
 
 tray-position = right
 tray-padding = 2
@@ -507,3 +507,10 @@ type = custom/script
 exec = $HOME/.config/polybar/scripts/tor.sh
 interval = 20
 click-left = gksudo systemctl restart tor
+
+; A script that shows if there are updates for Arch Linux and AUR updates.
+[module/updates-arch-combined]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/updates-arch-combined.sh
+click-left = terminator -e "sudo pacman -Syyu;bash"
+interval = 600
