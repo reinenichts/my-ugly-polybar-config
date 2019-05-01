@@ -61,7 +61,7 @@ font-3 = FontAwesome:style=Solid:size=16:antialias=true;3
 
 
 modules-left = bspwm i3
-modules-center =
+modules-center = xwindow
 modules-right = filesystem xbacklight alsa pulseaudio nm-reset tor-status updates-arch-combined xkeyboard memory cpu battery date jalali-date powermenu 
 
 tray-position = right
@@ -504,3 +504,12 @@ interval = 60
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #fff567
+
+; A script that shows focused window title
+[module/titlescript]
+type = custom/script
+tail = true
+label = %output%
+interval = 1
+;exec = i3get -r t
+exec = displaytitle
