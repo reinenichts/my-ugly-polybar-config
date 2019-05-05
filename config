@@ -34,7 +34,9 @@ height = 35
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 0.0
-fixed-center = false
+fixed-center = true
+
+enable-ipc = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -51,18 +53,18 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
+bottom = false
+
+font-0 = "FontAwesome5Free:style=Solid:size=12:antialias=true;3"
+font-1 = "UbuntuMono Nerd Font:style:Bold:pixelsize=12;3"
+font-2 = "Material Icons:style=Solid:size=16:antialias=true;5"
+font-3 = "FontAwesome:style=Solid:size=16:antialias=true;3"
+font-4 = "UbuntuMono Nerd Font:style:Bold:pixelsize=18;5"
 
 
-font-0 = FontAwesome5Free:style=Solid:size=12:antialias=true;3
-font-1 = TerminessTTF Nerd Font Mono:style:Solid:pixelsize=12;1
-font-2 = Material Icons:style=Solid:size=16:antialias=true;3
-font-3 = FontAwesome:style=Solid:size=16:antialias=true;3
-
-
-
-modules-left = bspwm i3
-modules-center = xwindow
-modules-right = filesystem xbacklight alsa pulseaudio nm-reset tor-status updates-arch-combined xkeyboard memory cpu battery date jalali-date powermenu 
+modules-left = i3
+modules-center = date jdate
+modules-right = filesystem xbacklight pulseaudio tor-status nm-reset updates-arch-combined xkeyboard battery powermenu 
 
 tray-position = right
 tray-padding = 2
@@ -82,6 +84,7 @@ tray-padding = 2
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:30:...%
@@ -94,8 +97,8 @@ format-prefix =
 format-prefix-foreground = ${colors.foreground-alt}
 format-prefix-underline = ${colors.secondary}
 
-label-layout = %layout%
-label-layout-underline = ${colors.secondary}
+label-layout =  %layout%
+;label-layout-underline = ${colors.secondary}
 
 label-indicator-padding = 2
 label-indicator-margin = 1
@@ -191,8 +194,8 @@ fuzzy-match = true
 
 ; ws-icon-[0-9]+ = label;icon
 ; NOTE: The label needs to match the name of the i3 workspace
-ws-icon-0 = 1;
-ws-icon-1 = 2;
+ws-icon-0 = 1;
+ws-icon-1 = 2;
 ws-icon-2 = 3;
 ws-icon-3 = 4;
 ws-icon-4 = 5;
@@ -218,11 +221,11 @@ label-mode-background = #e60053
 ;   %index%
 ;   %output%
 ; Default: %icon%  %name%
-label-focused = %icon% %name%
+label-focused = %name%
 label-focused-foreground = #ffffff
 label-focused-background = #3f3f3f
 label-focused-underline = #fba922
-label-focused-padding = 4
+label-focused-padding = 2
 
 ; Available tokens:
 ;   %name%
@@ -231,7 +234,7 @@ label-focused-padding = 4
 ;   %output%
 ; Default: %icon%  %index%
 label-unfocused = %icon% %name%
-label-unfocused-padding = 4
+label-unfocused-padding = 2
 
 ; Available tokens:
 ;   %name%
@@ -241,7 +244,7 @@ label-unfocused-padding = 4
 ; Default: %icon%  %index%
 label-visible = %icon%
 label-visible-underline = #555555
-label-visible-padding = 4
+label-visible-padding = 2
 
 ; Available tokens:
 ;   %name%
@@ -252,11 +255,11 @@ label-visible-padding = 4
 label-urgent = %index%
 label-urgent-foreground = #000000
 label-urgent-background = #bd2c40
-label-urgent-padding = 4
+label-urgent-padding = 2
 
 ; Separator in between workspaces
-label-separator = |
-label-separator-padding = 1
+label-separator =
+label-separator-padding = 2
 label-separator-foreground = #ffb52a
 
 [module/xbacklight]
@@ -274,7 +277,7 @@ format = <ramp> <label> <bar>
 
 ; Available tokens:
 ;   %percentage% (default)
-label = %percentage%%
+label =  %percentage%%
 
 ; Only applies if <ramp> is used
 ramp-0 =
@@ -284,10 +287,50 @@ ramp-3 =
 ramp-4 =
 
 ; Only applies if <bar> is used
-bar-width = 10
-bar-indicator = 
+bar-width = 1
+bar-indicator =
 bar-fill = -
 bar-empty = -
+
+[module/date]
+type = internal/date
+interval = 1
+
+date =
+
+time = %H:%M:%S
+
+format-prefix = 
+format-prefix-foreground = ${colors.foreground-alt}
+
+label = %date% %time%
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <label-volume> <bar-volume>
+label-volume =  %percentage%%
+label-volume-foreground = ${root.foreground}
+
+label-muted =  Mute
+label-muted-foreground = #666
+
+bar-volume-width = 1
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator =
+bar-volume-indicator-font = 2
+bar-volume-fill = -
+bar-volume-fill-font = 2
+bar-volume-empty = -
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/cpu]
 type = internal/cpu
@@ -343,48 +386,6 @@ format-disconnected =
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
-[module/date]
-type = internal/date
-interval = 1
-
-date = 
-
-time = %H:%M:%S
-
-format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #fff567
-
-label = %date% %time%
-
-[module/pulseaudio]
-type = internal/pulseaudio
-
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
-label-volume-foreground = ${root.foreground}
-
-label-muted =  muted
-label-muted-foreground = #666
-
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = -
-bar-volume-fill-font = 2
-bar-volume-empty = -
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
-
-
 [module/battery]
 type = internal/battery
 battery = BAT0
@@ -392,14 +393,14 @@ adapter = ADP0
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
-format-charging-underline = #ffb52a
+;format-charging-underline = #ffb52a
 
 format-discharging = <animation-discharging> <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
+;format-discharging-underline = ${self.format-charging-underline}
 
 format-full-prefix = "Full "
 format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${self.format-charging-underline}
+;format-full-underline = ${self.format-charging-underline}
 
 ramp-capacity-0 =
 ramp-capacity-1 =
@@ -421,39 +422,32 @@ animation-discharging-framerate = 750
 [module/powermenu]
 type = custom/menu
 
-expand-right = true
+expand-right = false
 
 format-spacing = 1
 
 label-open = 
 label-open-foreground = ${colors.secondary}
-label-close =  cancel
+label-close = 
 label-close-foreground = ${colors.secondary}
-label-separator = |
+label-separator = ‍
 label-separator-foreground = ${colors.foreground-alt}
 
-menu-0-0 = reborn
+menu-0-0 =  ‍
 menu-0-0-exec = menu-open-1
-menu-0-1 = die
+menu-0-1 = 
 menu-0-1-exec = menu-open-2
-menu-0-2 = sleep
+menu-0-2 = 
 menu-0-2-exec = menu-open-3
 
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = do it!
-menu-1-1-exec = systemctl reboot
+menu-1-0 = 
+menu-1-0-exec = systemctl reboot
 
-menu-2-0 = cancel
-menu-2-0-exec = menu-open-0
-menu-2-1 = do it!
-menu-2-1-exec = systemctl poweroff
+menu-2-0 = 
+menu-2-0-exec = systemctl suspend
 
-menu-3-0 = cancel
-menu-3-0-exec = menu-open-0
-menu-3-1 = do it!
-menu-3-1-exec = systemctl suspend
-
+menu-3-0 = 
+menu-3-0-exec = systemctl poweroff
 
 [settings]
 screenchange-reload = true
@@ -472,21 +466,18 @@ margin-bottom = 5
 ; for NetworkManager restart
 [module/nm-reset]
 type = custom/text
-content = NM Reset
+content =  NM
 click-left = gksudo systemctl restart NetworkManager
 
-; "content" has the same properties as "format-NAME"
-;content-background = #000
-content-foreground = ${colors.secondary}
-;content-padding = 1
-
-; if tor is connected shows green Tor text, if not connected shows red text
+; if tor is not connected shows red text
 ; on click restarts tor 
 [module/tor-status]
 type = custom/script
 exec = $HOME/.config/polybar/scripts/tor.sh
 interval = 20
 click-left = gksudo systemctl restart tor
+
+label = %{T5}%output%%{T-} Tor
 
 ; A script that shows if there are updates for Arch Linux and AUR updates.
 [module/updates-arch-combined]
@@ -495,21 +486,18 @@ exec = $HOME/.config/polybar/scripts/updates-arch-combined.sh
 click-left = terminator -e "sudo pacman -Syyu;bash"
 interval = 600
 
-; A script that shows jalali date
-[module/jalali-date]
-type = custom/script
-exec = $HOME/.config/polybar/scripts/jalali-date.py
-interval = 60
-
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #fff567
+;format-underline = #fff567
 
-; A script that shows focused window title
-[module/titlescript]
-type = custom/script
-tail = true
-label = %output%
-interval = 1
-;exec = i3get -r t
-exec = displaytitle
+; Shows jalali date on left click and calender icon on right click
+[module/jdate]
+type = custom/ipc
+
+hook-0 = echo 
+hook-1 = $HOME/.config/polybar/scripts/jalali-date.py
+
+initial = 1
+
+click-right = polybar-msg -p %pid% hook jdate 1
+click-left = polybar-msg -p %pid% hook jdate 2
