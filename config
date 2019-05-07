@@ -64,7 +64,7 @@ font-4 = "UbuntuMono Nerd Font:style:Bold:pixelsize=18;5"
 
 modules-left = i3
 modules-center = date jdate
-modules-right = filesystem xbacklight pulseaudio tor-status nm-reset updates-arch-combined xkeyboard battery powermenu 
+modules-right = filesystem xbacklight pulseaudio donations tor-status nm-reset updates-arch-combined xkeyboard battery powermenu 
 
 tray-position = right
 tray-padding = 2
@@ -501,3 +501,10 @@ initial = 1
 
 click-right = polybar-msg -p %pid% hook jdate 1
 click-left = polybar-msg -p %pid% hook jdate 2
+
+; counter for donated phucks from my phuck donation bot
+[module/donations]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/donations.py
+
+interval = 10
