@@ -18,11 +18,11 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #002b36
-background-alt = #002b36
+background = #101010
+background-alt = #101010
 ;foreground = ${xrdb:color7:#222}
-foreground = #93a1a1
-foreground-alt = #93a1a1
+foreground = #b9b9b9
+foreground-alt = #b9b9b9
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
@@ -56,15 +56,16 @@ module-margin-right = 2
 bottom = false
 
 font-0 = "FontAwesome5Free:style=Solid:size=12:antialias=true;3"
-font-1 = "UbuntuMono Nerd Font:style:Bold:pixelsize=12;3"
+;font-1 = "UbuntuMono Nerd Font:style:Bold:pixelsize=12;3"
+font-1 = "Noto Sans Mono:style:Bold:pixelsize=12;3"
 font-2 = "Material Icons:style=Solid:size=16:antialias=true;5"
 font-3 = "FontAwesome:style=Solid:size=16:antialias=true;3"
-font-4 = "UbuntuMono Nerd Font:style:Bold:pixelsize=18;5"
+;font-4 = "UbuntuMono Nerd Font:style:Bold:pixelsize=18;5"
 
 
 modules-left = i3
 modules-center = date jdate
-modules-right = filesystem xbacklight pulseaudio donations tor-status nm-reset updates-arch-combined xkeyboard battery powermenu 
+modules-right = xbacklight pulseaudio tor-status nm-reset xkeyboard powermenu 
 
 tray-position = right
 tray-padding = 2
@@ -483,7 +484,7 @@ label = %{T5}%output%%{T-} Tor
 [module/updates-arch-combined]
 type = custom/script
 exec = $HOME/.config/polybar/scripts/updates-arch-combined.sh
-click-left = terminator -e "sudo pacman -Syyu;bash"
+click-left = terminator -e "suedo pacman -Syyu;bash"
 interval = 600
 
 format-prefix = 
@@ -494,8 +495,8 @@ format-prefix-foreground = ${colors.foreground-alt}
 [module/jdate]
 type = custom/ipc
 
-hook-0 = echo 
-hook-1 = $HOME/.config/polybar/scripts/jalali-date.py
+hook-0 = $HOME/.config/polybar/scripts/jalali-date.py
+; hook-1 = $HOME/.config/polybar/scripts/jalali-date.py
 
 initial = 1
 
@@ -505,6 +506,12 @@ click-left = polybar-msg -p %pid% hook jdate 2
 ; counter for donated phucks from my phuck donation bot
 [module/donations]
 type = custom/script
-exec = $HOME/.config/polybar/scripts/donations.py
+exec = $HOME/.config/polybar/scripts/donations.py && notify-send "Donations Updated"
 
-interval = 10
+interval = 86400
+
+; if not connected to internet shows red text
+;[module/internet-status]
+;type = custom/script
+;exec = $HOME/.config/polybar/scripts/net.sh
+;interval = 5
