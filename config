@@ -65,7 +65,7 @@ font-3 = "FontAwesome:style=Solid:size=16:antialias=true;3"
 
 modules-left = i3
 modules-center = date jdate
-modules-right = eth wlan battery xbacklight pulseaudio xkeyboard 
+modules-right = xbacklight pulseaudio wlan eth battery tor-status xkeyboard 
 
 tray-position = right
 tray-padding = 2
@@ -299,7 +299,6 @@ interface = wlp2s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
 label-connected = %essid%
 
 format-disconnected =
